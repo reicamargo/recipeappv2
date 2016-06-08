@@ -17,16 +17,16 @@ class CategoriaManager: NSObject {
     
     func getCategorias(onComplete: ([Categoria], NSError?) -> Void) {
         
-        restApiManager.makeHTTPGetRequest(endPointUrl) { (categoriasJson, erro) in
-            //var categorias = [Categoria]()
-            for (_, categoria) in categoriasJson {
-                let cat = Categoria(id: categoria["Id"].int32Value, title: categoria["Titulo"].string!, ativo: categoria["Ativo"].boolValue)
-                self.categorias.append(cat)
+        if self.categorias.count == 0 {
+            restApiManager.makeHTTPGetRequest(endPointUrl) { (categoriasJson, erro) in
+                for (_, categoria) in categoriasJson {
+                    let cat = Categoria(id: categoria["Id"].int32Value, title: categoria["Titulo"].string!, ativo: categoria["Ativo"].boolValue)
+                    self.categorias.append(cat)
+                }
+                onComplete(self.categorias, erro)
             }
-            onComplete(self.categorias, erro)
         }
-         
-        
+        onComplete(self.categorias, nil)
     }
     
     func getCategoria(idCategoria: Int32, onComplete: (Categoria, NSError?) -> Void) {

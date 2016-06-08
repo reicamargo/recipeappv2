@@ -18,29 +18,13 @@ class CategoriaTableViewController: UITableViewController {
         super.viewDidLoad()
         self.ind.startAnimating()
         
-        if CategoriaManager.sharedInstance.categorias.count == 0 {
-            CategoriaManager.sharedInstance.getCategorias { categorias, erro -> Void in
-                self.categories = categorias
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView.reloadData()
-                    self.ind.stopAnimating()
-                })
-                
-            }
-        }
-        else {
-            self.categories = CategoriaManager.sharedInstance.categorias
+        CategoriaManager.sharedInstance.getCategorias { categorias, erro -> Void in
+            self.categories = categorias
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
                 self.ind.stopAnimating()
             })
         }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
