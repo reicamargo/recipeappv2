@@ -45,7 +45,7 @@ class RestApiManager: NSObject {
                 
                 guard let value = response.result.value else {
                     //como instanciar um erro do NSError com essa mensagem
-                    print("no result data received when calling GET on /todos/1")
+                    //print("no result data received when calling GET on /todos/1")
                     onCompletion(nil, response.result.error!)
                     return
                 }
