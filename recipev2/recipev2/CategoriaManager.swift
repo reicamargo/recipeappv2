@@ -42,16 +42,12 @@ class CategoriaManager: NSObject {
     
     func addCategoria(categoria: Categoria, onComplete: (NSError?) -> Void) {
         
-        let categoriaJson = JSON(["Titulo": categoria.title, "Ativo":categoria.ativo])
+        let categoriaJson = categoria.returnJSONObject()
         
         restApiManager.makeHTTPPostRequest(endPointUrl, body: categoriaJson) { (categoriaJson, erro) in
-            var cat: Categoria
             if categoriaJson != nil {
-                cat = Categoria(id: categoriaJson["Id"].int32Value,
-                                title: categoriaJson["Titulo"].string!,
-                                ativo: categoriaJson["Ativo"].boolValue)
-            
-                self.categorias.append(cat)
+                categoria.id = categoriaJson["Id"].int32Value
+                self.categorias.append(categoria)
             }
             
             onComplete(erro)

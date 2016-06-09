@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Categoria {
     var id: Int32?
@@ -22,5 +23,10 @@ class Categoria {
     init(title: String, ativo: Bool){
         self.title = title
         self.ativo = ativo
+    }
+    
+    func returnJSONObject() -> JSON {
+        let jsonObject = JSON(["Titulo": self.title, "Ativo": self.ativo])
+        return jsonObject
     }
 }
